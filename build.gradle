@@ -1,0 +1,28 @@
+apply plugin: 'application'
+apply plugin: 'scala'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.useAnt = false
+}
+
+ext {
+    scalaVersion = "2.11"
+    akkaVersion = "2.4.4"
+}
+
+dependencies {
+    compile "com.typesafe.akka:akka-actor_${scalaVersion}:${akkaVersion}"
+    compile "com.typesafe.akka:akka-stream_${scalaVersion}:${akkaVersion}"
+    compile "com.typesafe.akka:akka-http-experimental_${scalaVersion}:${akkaVersion}"
+    compile "com.typesafe.akka:akka-http-spray-json-experimental_${scalaVersion}:${akkaVersion}"
+}
+
+run {
+    mainClassName = 'WebServer'
+    standardInput = System.in
+}
